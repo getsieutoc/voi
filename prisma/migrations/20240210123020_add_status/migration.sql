@@ -1,0 +1,5 @@
+-- CreateEnum
+CREATE TYPE "Status" AS ENUM ('REVIEW', 'PLANNED', 'IN_PROGRESS', 'RELEASED', 'DISCARDED');
+
+-- AlterTable
+ALTER TABLE "Post" ADD COLUMN     "status" "Status" NOT NULL DEFAULT 'REVIEW';
