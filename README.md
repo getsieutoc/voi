@@ -12,19 +12,34 @@
 - TypeScript
 - ESLint
 - Prettier
-- Tailwind CSS
-- Prisma
-- Next-Auth
-- Docker Compose with:
-    - PostgresQL
-    - Redis
-    - Mailpit
+- Shadcn UI with Tailwind CSS
+- Postgresql with Prisma
+- Magic link login with Next-Auth
 
 ## Demo
 
 TBD
 
 ## Getting Started
+
+#### installation
+
+You need at least one Postgresql instance up and running.
+
+Then you can deploy like a simple Next.js app, there are lot of tutorial on Vercel, Netlify etc.
+
+The environment variables you need:
+
+```
+NEXTAUTH_SECRET=topsecret
+NEXTAUTH_URL=https://yourdomain.com
+DATABASE_URL=postgres://....
+
+SMTP_USER=yoursmtpuser
+SMTP_PASSWORD=yoursmtppass
+SMTP_HOST=yoursmtpserver
+SMTP_PORT=587
+```
 
 #### For Development
 

@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer';
 
-import { EMAIL_FROM, EMAIL_REGEX, IS_PRODUCTION } from './constants';
+import { EMAIL_FROM, EMAIL_REGEX } from './constants';
 
 type EmailPayload = {
   to: string;
@@ -10,7 +10,6 @@ type EmailPayload = {
 };
 
 const smtpOptions = {
-  secure: IS_PRODUCTION,
   host: process.env.SMTP_HOST || 'localhost',
   port: Number(process.env.SMTP_PORT || 1025),
   auth: {
