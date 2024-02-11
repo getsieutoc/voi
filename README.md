@@ -26,6 +26,12 @@ https://voi.up.railway.app
 
 [![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/kJ5jtI?referralCode=pwTZMY)
 
+> [!IMPORTANT]
+> Currently the Railway template has 2 issues:
+> - It does not have the `RAILWAY_PUBLIC_DOMAIN` on the first time building. So you have to go to the `voi` service Settings and generate domain, then rebuild.
+> - The second issue is the Prisma migrations. I still can not find a way to automatically run the script yet. For now you have to run it on the first time from your machine:
+> - Use the `pnpm run prisma migrate deploy` after using your DATABASE_URL from Railway. I will fix this soon.
+
 ### Installation
 
 You need at least one Postgresql instance up and running.
