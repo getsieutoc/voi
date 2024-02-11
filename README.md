@@ -18,11 +18,15 @@
 
 ## Demo
 
-TBD
+https://voi.up.railway.app
 
 ## Getting Started
 
-#### installation
+### One-click Deploy
+
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/MArjdV?referralCode=pwTZMY)
+
+### Installation
 
 You need at least one Postgresql instance up and running.
 
@@ -41,7 +45,7 @@ SMTP_HOST=yoursmtpserver
 SMTP_PORT=587
 ```
 
-#### For Development
+### For Development
 
 - We use `pnpm` package manager. Get it [here](https://pnpm.io/installation).
 - Make sure Docker up and running.
@@ -88,9 +92,9 @@ Sometimes, for example in fresh database situation when you have just started:
 pnpm prisma migrate dev
 ```
 
-#### Create New Component
+### Create New Component
 
-We use [ shadcn-ui ](https://ui.shadcn.com/) in this stack, and create 2 helper scripts for you:
+We use [shadcn-ui](https://ui.shadcn.com/) in this stack, and create 2 helper scripts for you:
 
 ```bash
 # for adding new component
@@ -108,4 +112,3 @@ Open [http://localhost:3000](http://localhost:3000) with your browser and start 
 
 - This project uses `App Router` feature.
 - We try to take adventage of Next.js's ecosystem, thus most of the features here are built on top of Next.js best practices.
-- In the future we will launch a tool for customising your own themes soon!
