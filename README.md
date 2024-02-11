@@ -1,16 +1,12 @@
-<h1 align="center">Taijutsu Stack</h1>
+<h1 align="center">Voi</h1>
 
 <p align="center">Made by ⚡Sieutoc</p>
 
 <p align="center" width="100%">
-    <img src="https://i.imgflip.com/8cdo87.jpg" />
+    <img src="https://github.com/websitesieutoc/voi/assets/1083478/7afcc2d3-0a2b-4bc8-acb8-42f99ded4bdd" />
 </p>
 
-The stack that use Tailwind CSS.
-
 ## Features
-
-This template includes the following:
 
 - Next.js 14
 - TypeScript
@@ -26,7 +22,7 @@ This template includes the following:
 
 ## Demo
 
-https://taijutsu.sieutoc.website
+TBD
 
 ## Getting Started
 
@@ -38,18 +34,6 @@ https://taijutsu.sieutoc.website
     - Follow [this guide](https://docs.docker.com/docker-hub/access-tokens/).
     - Login with `docker login --username <your-username>`
 
-#### Clone the project
-
-You can either use this template by:
-
-- Click the **"Use this template"** button and follow the instruction
-- Or using the script below:
-
-```bash
-pnpm dlx tiged websitesieutoc/taijutsu your-project
-```
-
-Then, search and replace `taijutsu` with your project slug.
 
 #### Install dependencies
 
