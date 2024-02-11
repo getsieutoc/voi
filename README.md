@@ -24,7 +24,7 @@ https://voi.up.railway.app
 
 ### One-click Deploy
 
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/MArjdV?referralCode=pwTZMY)
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/kJ5jtI?referralCode=pwTZMY)
 
 ### Installation
 
