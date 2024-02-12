@@ -81,12 +81,6 @@ Then, run the development server:
 pnpm dev
 ```
 
-Then, run the development server:
-
-```bash
-pnpm dev
-```
-
 #### Setup Prisma
 
 NOTE: The dev server need to be running, because we need Postgres instance.
