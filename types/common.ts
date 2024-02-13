@@ -14,8 +14,7 @@ export enum HttpMethod {
 
 export type PostWithPayload = Prisma.PostGetPayload<{
   include: {
-    votes: true;
-    tags: true;
     user: true;
+    _count: true;
   };
 }>;

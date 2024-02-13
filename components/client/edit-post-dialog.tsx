@@ -22,7 +22,7 @@ import {
   Textarea,
 } from '@/components/ui';
 import { Post, PostWithPayload, SubmitHandler, Status } from '@/types';
-import { useDisclosure, useForm, useSWRConfig } from '@/hooks';
+import { useAuth, useDisclosure, useForm, useSWRConfig } from '@/hooks';
 import { updatePost } from '@/services/posts';
 import { queryStringify } from '@/lib/utils';
 import { Pencil } from '@/components/icons';
@@ -36,6 +36,8 @@ export const EditPostDialog = ({
   post: PostWithPayload;
   onFinish?: (id: string) => void;
 }) => {
+  const { isAdmin } = useAuth();
+
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   const { mutate } = useSWRConfig();
@@ -124,33 +126,35 @@ export const EditPostDialog = ({
                 )}
               />
 
-              <FormField
-                control={form.control}
-                name="status"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Change Status</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select a status" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {Object.keys(Status).map((key) => (
-                          <SelectItem key={key} value={key}>
-                            {key}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              {isAdmin && (
+                <FormField
+                  control={form.control}
+                  name="status"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Change Status</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select a status" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {Object.keys(Status).map((key) => (
+                            <SelectItem key={key} value={key}>
+                              {key}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
             </div>
 
             <DialogFooter className="mt-6 w-full justify-between">

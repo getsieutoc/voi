@@ -37,7 +37,11 @@ export const RoadmapColumn = ({ status }: RoadmapColumnProps) => {
           posts.map((post) => {
             return (
               <div key={post.id} className="flex items-center gap-2">
-                <UpVote postId={post.id} onFinish={mutate} />
+                <UpVote
+                  postId={post.id}
+                  value={post._count.votes}
+                  onFinish={mutate}
+                />
 
                 <div className="flex flex-auto flex-col">
                   <QuickLookPost post={post} />

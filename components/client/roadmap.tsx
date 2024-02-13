@@ -1,11 +1,11 @@
 import {
-  Button,
   Input,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
+  // Button,
+  // Popover,
+  // PopoverContent,
+  // PopoverTrigger,
 } from '@/components/ui';
-import { Filter } from '@/components/icons';
+// import { Filter } from '@/components/icons';
 import { RoadmapColumn } from './roadmap-column';
 import { Status } from '@/types';
 
@@ -17,17 +17,17 @@ export const Roadmap = () => {
           <Input placeholder="Type to search" size="sm" />
         </div>
 
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button size="sm" variant="outline">
-              <Filter className="h-4" />
-              Filter
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent side="left" align="start" className="text-sm">
-            Filter is under construction
-          </PopoverContent>
-        </Popover>
+        {/* <Popover> */}
+        {/*   <PopoverTrigger asChild> */}
+        {/*     <Button disabled size="sm" variant="outline"> */}
+        {/*       <Filter className="h-4" /> */}
+        {/*       Filter */}
+        {/*     </Button> */}
+        {/*   </PopoverTrigger> */}
+        {/*   <PopoverContent side="left" align="start" className="text-sm"> */}
+        {/*     Filter is under construction */}
+        {/*   </PopoverContent> */}
+        {/* </Popover> */}
       </div>
 
       <div className="grid h-full grid-cols-3 gap-4">

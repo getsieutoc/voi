@@ -4,13 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { getSession } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import deepmerge from 'deepmerge';
-import { Post, PostWithPayload } from '@/types';
-
-const richInclude = {
-  votes: true,
-  tags: true,
-  user: true,
-};
+import { Post } from '@/types';
 
 export async function createPost(
   input: Parameters<typeof prisma.post.create>[0]
@@ -41,17 +35,12 @@ export async function findPosts(input: PostFindManyArgs = {}) {
 
   const response = await prisma.post.findMany({
     ...args,
-    include: richInclude,
-  });
-
-  return response;
-}
-
-// TODO: Implement rate limit because we have to allow this one public
-export async function getPostById(id: string): Promise<PostWithPayload | null> {
-  const response = await prisma.post.findUnique({
-    where: { id },
-    include: richInclude,
+    include: {
+      user: true,
+      _count: {
+        select: { votes: true },
+      },
+    },
   });
 
   return response;
