@@ -2,6 +2,7 @@ import {
   Body,
   Button,
   Container,
+  Font,
   Head,
   Heading,
   Html,
@@ -23,42 +24,46 @@ export default function MagicLinkTemplate({
 }: MagicLinkTemplateProps) {
   return (
     <Html>
-      <Head />
-      <Preview>Log in to Sieutoc</Preview>
+      <Head>
+        <title>{`Welcome to ${PROJECT_NAME}`}</title>
 
-      <Body style={main as React.CSSProperties}>
-        <Container style={container as React.CSSProperties}>
-          <Link href={baseUrl} target="_blank">
-            <Heading style={logo}>{PROJECT_NAME}</Heading>
+        <Font
+          fontFamily="Roboto"
+          fallbackFontFamily="Arial"
+          fontWeight={400}
+          fontStyle="normal"
+        />
+      </Head>
+
+      <Preview>{`Click the button to login to ${PROJECT_NAME}.`}</Preview>
+
+      <Body style={main}>
+        <Container style={container}>
+          <Link href={baseUrl}>
+            <Heading style={logo}>{`${PROJECT_NAME}`}</Heading>
           </Link>
-
-          <Heading style={h1}>Login</Heading>
 
           <div>
             <Text style={text}>
-              Click the button below to log in to {PROJECT_NAME}.
+              {`Click the button below to log in to ${PROJECT_NAME}.`}
             </Text>
             <Text style={text}>This button will expire in 30 minutes.</Text>
           </div>
 
-          <Button
-            className="login-button"
-            href={confirmUrl}
-            target="_blank"
-            style={button}
-          >
-            Login to {PROJECT_NAME}
+          <Button href={confirmUrl} style={button}>
+            {`Login to ${PROJECT_NAME}`}
           </Button>
 
           <div>
             <Text style={text}>Or, copy and paste this url:</Text>
             <code style={code}>{confirmUrl}</code>
-            <Text style={{ ...text, color: '#ababab' }}>
+
+            <Text style={{ ...text, color: '#ababab', marginTop: 50 }}>
               If you didn&apos;t try to login, you can safely ignore this email.
             </Text>
           </div>
 
-          <Text style={footer}>Made by ⚡Sieutoc</Text>
+          <Text style={footer}>Powered by ⚡Sieutoc</Text>
         </Container>
       </Body>
     </Html>
@@ -68,8 +73,6 @@ export default function MagicLinkTemplate({
 const main = {
   lineHeight: '1.2rem',
   backgroundColor: '#ffffff',
-  fontFamily:
-    "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
 };
 
 const container = {
@@ -81,14 +84,6 @@ const container = {
 const logo = {
   color: '#111',
   fontSize: '32px',
-  fontWeight: 'bold',
-  padding: '0',
-  margin: '30px 0',
-};
-
-const h1 = {
-  color: '#333',
-  fontSize: '18px',
   fontWeight: 'bold',
   padding: '0',
   margin: '30px 0',
@@ -119,7 +114,7 @@ const text = {
 
 const footer = {
   color: '#898989',
-  fontWeight: 'bold',
+  fontSize: '12px',
   margin: '20px 0',
 };
 
