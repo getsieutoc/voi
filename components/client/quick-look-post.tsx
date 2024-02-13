@@ -37,7 +37,7 @@ export const QuickLookPost = ({ post }: QuickLookPostProps) => {
   return (
     <Dialog onOpenChange={handleOpenChange} open={isOpen}>
       <DialogTrigger asChild>
-        <h3 className="text-md font-medium hover:cursor-pointer hover:text-sky-400 dark:hover:text-sky-600">
+        <h3 className="text-md line-clamp-2 font-medium hover:cursor-pointer hover:text-sky-400 dark:hover:text-sky-600">
           {post.title}
         </h3>
       </DialogTrigger>

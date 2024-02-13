@@ -22,9 +22,8 @@ import {
   Textarea,
 } from '@/components/ui';
 import { Post, PostWithPayload, SubmitHandler, Status } from '@/types';
-import { useAuth, useDisclosure, useForm, useSWRConfig } from '@/hooks';
+import { useAuth, useDisclosure, useForm, usePosts } from '@/hooks';
 import { updatePost } from '@/services/posts';
-import { queryStringify } from '@/lib/utils';
 import { Pencil } from '@/components/icons';
 
 type ManualInputs = Partial<Post>;
@@ -40,9 +39,11 @@ export const EditPostDialog = ({
 
   const { isOpen, onClose, onOpen } = useDisclosure();
 
-  const { mutate } = useSWRConfig();
-
   const form = useForm<ManualInputs>({ defaultValues: post });
+
+  const statusValue = form.watch('status') ?? post.status;
+
+  const { mutate } = usePosts(statusValue);
 
   const handleOpenChange = (isOpen: boolean) => {
     if (isOpen) {
@@ -63,12 +64,7 @@ export const EditPostDialog = ({
       onFinish?.(post.id);
     }
 
-    const queryString = queryStringify({
-      model: 'post',
-      status: input.status,
-    });
-
-    mutate(`/api/search?${queryString}`);
+    mutate();
 
     handleOpenChange(false);
   };

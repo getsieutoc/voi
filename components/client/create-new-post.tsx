@@ -17,9 +17,9 @@ import {
   Input,
   Textarea,
 } from '@/components/ui';
-import { useAuth, useDisclosure, useForm, useSWRConfig } from '@/hooks';
-import { createPost } from '@/services/posts';
+import { useAuth, useDisclosure, useForm, usePosts } from '@/hooks';
 import { Status, Post, SubmitHandler } from '@/types';
+import { createPost } from '@/services/posts';
 import { Plus } from '@/components/icons';
 
 const defaultValues = {
@@ -35,7 +35,7 @@ export const CreateNewPostButton = () => {
 
   const { session } = useAuth();
 
-  const { mutate } = useSWRConfig();
+  const { mutate } = usePosts(Status.REVIEW);
 
   const form = useForm<Inputs>({ defaultValues });
 
@@ -64,7 +64,7 @@ export const CreateNewPostButton = () => {
     });
 
     if (result) {
-      mutate('/api/search?model=post&status=REVIEW');
+      mutate();
       handleOpenChange(false);
     }
   };
