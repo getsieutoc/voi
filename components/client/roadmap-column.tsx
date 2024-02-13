@@ -1,9 +1,10 @@
 'use client';
 
+import { useAtomValue, useAuth, useSWR } from '@/hooks';
+import { PostWithPayload, Status } from '@/types';
+import { globalSearchAtom } from '@/lib/jotai';
 import { queryStringify } from '@/lib/utils';
 import { Separator } from '@/components/ui';
-import { useAuth, useSWR } from '@/hooks';
-import { PostWithPayload, Status } from '@/types';
 
 import { QuickLookPost } from './quick-look-post';
 import { ActionMenu } from './action-menu';
@@ -16,9 +17,12 @@ export type RoadmapColumnProps = {
 export const RoadmapColumn = ({ status }: RoadmapColumnProps) => {
   const { session, isAdmin } = useAuth();
 
+  const search = useAtomValue(globalSearchAtom);
+
   const queryString = queryStringify({
     model: 'post',
     status,
+    search,
   });
 
   const { data: posts, mutate } = useSWR<PostWithPayload[]>(
