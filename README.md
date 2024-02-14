@@ -147,7 +147,7 @@ services:
             POSTGRES_PASSWORD: yourpostgrespassword
 
     app:
-        container_name: voi
+        container_name: voi-app
         image: sieutoc/voi:latest
         restart: always
         ports:
