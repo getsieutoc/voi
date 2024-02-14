@@ -154,22 +154,22 @@ services:
             - "80:3000"
         environment:            
             # Needed for authentication
-            - NEXTAUTH_SECRET: topsecret
-            - NEXTAUTH_URL: http://localhost:3000
+            NEXTAUTH_SECRET: topsecret
+            NEXTAUTH_URL: http://localhost:3000
 
             # Connection string to the PostgreSQL database
-            - DATABASE_URL: postgres://postgresuser:yourpostgrespassword@db:5432/postgresdb
+            DATABASE_URL: postgres://postgresuser:yourpostgrespassword@db:5432/postgresdb
 
             # From which account e-mails will be sent
-            - EMAIL_FROM: hi@yourdomain.com
+            EMAIL_FROM: hi@yourdomain.com
 
-            - SMTP_USER: username
-            - SMTP_PASSWORD: password
-            - SMTP_HOST: smtp.yourdomain.com
-            - SMTP_PORT: 587
+            SMTP_USER: username
+            SMTP_PASSWORD: password
+            SMTP_HOST: smtp.yourdomain.com
+            SMTP_PORT: 587
 
             # Extra
-            - PROJECT_NAME: Voi
+            PROJECT_NAME: Voi
     
 volumes:
     data:
