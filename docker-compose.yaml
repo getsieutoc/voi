@@ -22,12 +22,6 @@ services:
       timeout: 5s
       retries: 3
 
-  redis:
-    container_name: voi-redis
-    image: redis:7-alpine
-    ports:
-      - "6379:6379"
-
   mailpit:
     container_name: voi-mailpit
     image: axllent/mailpit:latest

@@ -4,7 +4,7 @@ import { queryStringify } from '@/lib/utils';
 import { useAtomValue } from 'jotai';
 import useSWR from 'swr';
 
-export const usePosts = (status: Status) => {
+export const usePosts = (status?: Status) => {
   const search = useAtomValue(globalSearchAtom);
 
   const queryString = queryStringify({
@@ -14,7 +14,7 @@ export const usePosts = (status: Status) => {
   });
 
   const { data: posts, ...rest } = useSWR<PostWithPayload[]>(
-    `/api/search?${queryString}`,
+    status ? `/api/search?${queryString}` : null,
     { keepPreviousData: true }
   );
 
