@@ -21,12 +21,13 @@ import {
 } from '@/components/icons';
 import { signOut } from 'next-auth/react';
 import { Session } from 'next-auth';
+import NextLink from 'next/link';
 
 export type ProfileIconProps = {
   user: Session['user'];
 };
 
-export const ProfileIcon = ({ user }: ProfileIconProps) => {
+export const ProfileMenu = ({ user }: ProfileIconProps) => {
   const handleSignOut = async () => {
     await signOut();
   };
@@ -48,12 +49,14 @@ export const ProfileIcon = ({ user }: ProfileIconProps) => {
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent side="bottom" align="end" className="w-56">
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuLabel>{user.name ?? 'My Account'}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem disabled>
-            <User className="mr-2 h-4 w-4" />
-            <span>Profile</span>
+          <DropdownMenuItem asChild>
+            <NextLink href="/profile">
+              <User className="mr-2 h-4 w-4" />
+              <span>Profile</span>
+            </NextLink>
           </DropdownMenuItem>
           <DropdownMenuItem disabled>
             <Settings className="mr-2 h-4 w-4" />

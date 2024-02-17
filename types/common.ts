@@ -18,3 +18,9 @@ export type PostWithPayload = Prisma.PostGetPayload<{
     _count: true;
   };
 }>;
+
+export type NotifyMeOption = 'all' | 'mine' | 'nothing';
+
+export type Preferences = {
+  notifyMe?: NotifyMeOption;
+};

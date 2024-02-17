@@ -1,6 +1,7 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 import { PROJECT_NAME } from '@/lib/constants';
 import { cn } from '@/lib/utils';
+import NextLink from 'next/link';
 import { forwardRef } from 'react';
 
 const logoVariants = cva('font-bold', {
@@ -28,11 +29,11 @@ interface LogoProps
 const Logo = forwardRef<HTMLHeadingElement, LogoProps>(
   ({ value, className, size, href = '/' }, ref) => {
     return (
-      <a href={href}>
+      <NextLink href={href}>
         <h1 ref={ref} className={cn(logoVariants({ size, className }))}>
           {value ?? PROJECT_NAME}
         </h1>
-      </a>
+      </NextLink>
     );
   }
 );

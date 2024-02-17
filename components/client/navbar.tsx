@@ -4,7 +4,7 @@ import { Skeleton } from '@/components/ui';
 import { useAuth } from '@/hooks';
 
 import { CreateNewPostButton } from './create-new-post';
-import { ProfileIcon } from './profile-icon';
+import { ProfileMenu } from './profile-menu';
 import { AuthButton } from './auth-button';
 import { Logo } from './logo';
 
@@ -21,7 +21,7 @@ export const Navbar = () => {
         <div className="flex justify-between gap-12">
           {isAuthenticated && <CreateNewPostButton />}
 
-          {session ? <ProfileIcon user={session.user} /> : <AuthButton />}
+          {session ? <ProfileMenu user={session.user} /> : <AuthButton />}
         </div>
       )}
     </div>

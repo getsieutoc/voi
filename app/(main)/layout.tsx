@@ -2,7 +2,7 @@ import { Navbar } from '@/components/client';
 import { Separator } from '@/components/ui';
 import { ReactNode } from 'react';
 
-export default function DefaultTemplate({ children }: { children: ReactNode }) {
+export default function MainLayout({ children }: { children: ReactNode }) {
   return (
     <div className="mx-auto flex h-dvh max-w-screen-lg flex-col gap-4 p-4 text-sm">
       <Navbar />
