@@ -31,6 +31,9 @@ https://voi.up.railway.app
 
 [![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/kJ5jtI?referralCode=pwTZMY)
 
+> [!NOTE]
+> Currently the Dockerfile does not work well, so the template still uses the GitHub as source. If you could help, please suggest me a way. Thanks in advance.
+
 ### Normal Installation
 
 You need at least one Postgresql instance up and running.
