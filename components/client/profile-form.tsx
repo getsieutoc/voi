@@ -13,9 +13,9 @@ import { updateUser } from '@/services/users';
 import { useForm } from '@/hooks';
 
 type ManualInputs = {
-  name?: string;
-  email?: string;
-  image?: string;
+  name: string;
+  email: string;
+  image: string;
 };
 
 export type ProfileFormProps = {
@@ -24,12 +24,16 @@ export type ProfileFormProps = {
 
 export const ProfileForm = ({ user }: ProfileFormProps) => {
   const defaultValues: ManualInputs = {
-    name: user.name ?? undefined,
-    email: user.email ?? undefined,
-    image: user.image ?? undefined,
+    name: user.name ?? '',
+    email: user.email ?? '',
+    image: user.image ?? '',
   };
 
   const form = useForm<ManualInputs>({ defaultValues });
+
+  const {
+    formState: { isDirty, isSubmitting },
+  } = form;
 
   const onSubmit: SubmitHandler<ManualInputs> = async (input) => {
     await updateUser(user.id, input, {
@@ -74,11 +78,11 @@ export const ProfileForm = ({ user }: ProfileFormProps) => {
           </div>
 
           <div className="mt-6 flex w-full justify-end gap-4">
-            {form.formState.isDirty && (
+            {isDirty && (
               <Button
                 onClick={(e) => {
                   e.preventDefault();
-                  form.reset();
+                  form.reset(defaultValues);
                 }}
                 className="max-w-fit animate-fade-in duration-500"
                 variant="ghost"
@@ -88,7 +92,7 @@ export const ProfileForm = ({ user }: ProfileFormProps) => {
             )}
 
             <Button
-              disabled={form.formState.isSubmitting || !form.formState.isDirty}
+              disabled={isSubmitting || !isDirty}
               className="max-w-fit"
               type="submit"
             >
