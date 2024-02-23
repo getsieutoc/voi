@@ -15,7 +15,6 @@ import { useForm } from '@/hooks';
 type ManualInputs = {
   name: string;
   email: string;
-  image: string;
 };
 
 export type ProfileFormProps = {
@@ -26,10 +25,11 @@ export const ProfileForm = ({ user }: ProfileFormProps) => {
   const defaultValues: ManualInputs = {
     name: user.name ?? '',
     email: user.email ?? '',
-    image: user.image ?? '',
   };
 
-  const form = useForm<ManualInputs>({ defaultValues });
+  const form = useForm<ManualInputs>({
+    defaultValues: defaultValues,
+  });
 
   const {
     formState: { isDirty, isSubmitting },
@@ -49,8 +49,8 @@ export const ProfileForm = ({ user }: ProfileFormProps) => {
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="flex flex-col gap-4">
             <FormField
-              control={form.control}
               name="name"
+              control={form.control}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Name</FormLabel>
@@ -63,8 +63,8 @@ export const ProfileForm = ({ user }: ProfileFormProps) => {
             />
 
             <FormField
-              control={form.control}
               name="email"
+              control={form.control}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Email</FormLabel>
