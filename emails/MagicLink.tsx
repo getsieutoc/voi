@@ -13,15 +13,15 @@ import {
 import { PROJECT_NAME } from '@/lib/constants';
 import * as React from 'react';
 
-interface MagicLinkTemplateProps {
+type MagicLinkTemplateProps = {
   confirmUrl: string;
   baseUrl: string;
-}
+};
 
-export default function MagicLinkTemplate({
+export const MagicLinkTemplate = ({
   confirmUrl,
   baseUrl,
-}: MagicLinkTemplateProps) {
+}: MagicLinkTemplateProps) => {
   return (
     <Html>
       <Head>
@@ -68,7 +68,7 @@ export default function MagicLinkTemplate({
       </Body>
     </Html>
   );
-}
+};
 
 const main = {
   lineHeight: '1.2rem',

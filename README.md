@@ -58,9 +58,8 @@ SMTP_PORT=587
 - We use `pnpm` package manager. Get it [here](https://pnpm.io/installation).
 - Make sure Docker up and running.
 - If your Docker account has 2FA enabled, you have to create a Personal Access Token and login before:
-    - Follow [this guide](https://docs.docker.com/docker-hub/access-tokens/).
-    - Login with `docker login --username <your-username>`
-
+  - Follow [this guide](https://docs.docker.com/docker-hub/access-tokens/).
+  - Login with `docker login --username <your-username>`
 
 #### Install dependencies
 
@@ -114,7 +113,6 @@ Open [http://localhost:3000](http://localhost:3000) with your browser and start 
 
 - This project uses `App Router` feature.
 - We try to take adventage of Next.js's ecosystem, thus most of the features here are built on top of Next.js best practices.
-- We use storybook for UI components preview, it will automatically run with `pnpm run dev`
 
 ## Deploy with Docker
 
@@ -122,7 +120,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser and start 
 
 - Docker
 - Docker Compose
-- PostgreSQL  16+
+- PostgreSQL 16+
 - SMTP Credentials
 
 ### Setting up
@@ -136,46 +134,46 @@ version: "3.8"
 name: voi
 
 services:
-    postgres:
-        container_name: voi-postgres
-        image: postgres:16-alpine
-        restart: always
-        ports:
-            - "5432:5432"
-        volumes:
-            - data:/var/lib/postgresql/data
-        environment:
-            POSTGRES_DB: postgresdb
-            POSTGRES_USER: postgresuser
-            POSTGRES_PASSWORD: yourpostgrespassword
+  postgres:
+    container_name: voi-postgres
+    image: postgres:16-alpine
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: postgresdb
+      POSTGRES_USER: postgresuser
+      POSTGRES_PASSWORD: yourpostgrespassword
 
-    app:
-        container_name: voi-app
-        image: sieutoc/voi:latest
-        restart: always
-        ports:
-            - "80:3000"
-        environment:            
-            # Needed for authentication
-            NEXTAUTH_SECRET: topsecret
-            NEXTAUTH_URL: http://localhost:3000
+  app:
+    container_name: voi-app
+    image: sieutoc/voi:latest
+    restart: always
+    ports:
+      - "80:3000"
+    environment:
+      # Needed for authentication
+      NEXTAUTH_SECRET: topsecret
+      NEXTAUTH_URL: http://localhost:3000
 
-            # Connection string to the PostgreSQL database
-            DATABASE_URL: postgres://postgresuser:yourpostgrespassword@db:5432/postgresdb
+      # Connection string to the PostgreSQL database
+      DATABASE_URL: postgres://postgresuser:yourpostgrespassword@db:5432/postgresdb
 
-            # From which account e-mails will be sent
-            EMAIL_FROM: hi@yourdomain.com
+      # From which account e-mails will be sent
+      EMAIL_FROM: hi@yourdomain.com
 
-            SMTP_USER: username
-            SMTP_PASSWORD: password
-            SMTP_HOST: smtp.yourdomain.com
-            SMTP_PORT: 587
+      SMTP_USER: username
+      SMTP_PASSWORD: password
+      SMTP_HOST: smtp.yourdomain.com
+      SMTP_PORT: 587
 
-            # Extra
-            PROJECT_NAME: Voi
-    
+      # Extra
+      PROJECT_NAME: Voi
+
 volumes:
-    data:
+  data:
 ```
 
 The Docker Compose file above defines two services: `postgres` and `app`. In case you're using an external Postgres database, remove the db service and replace `DATABASE_URL` environment variable with your connection string.

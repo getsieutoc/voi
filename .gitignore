@@ -35,3 +35,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# new prisma client
+/prisma/client
+
+# AI 
+/docs
+/tasks
+/.cline/
