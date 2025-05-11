@@ -27,7 +27,7 @@ export const sendEmail = async (data: EmailPayload) => {
 
   const transporter = nodemailer.createTransport(smtpOptions);
 
-  return await transporter.sendMail({
+  return transporter.sendMail({
     from: EMAIL_FROM,
     ...data,
   });

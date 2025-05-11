@@ -6,9 +6,9 @@ import { render } from '@react-email/render';
 import { cookies } from 'next/headers';
 import { prisma } from '@/lib/prisma';
 import { Role } from '@/types';
+import nodemailer from 'nodemailer';
 
-import { EMAIL_FROM, PROJECT_NAME } from './constants';
-import { sendEmail } from './nodemailer';
+import { EMAIL_FROM, EMAIL_REGEX, PROJECT_NAME } from './constants';
 import { AdapterUser } from 'next-auth/adapters';
 
 export const authOptions: NextAuthOptions = {
@@ -26,10 +26,18 @@ export const authOptions: NextAuthOptions = {
           pass: process.env.SMTP_PASSWORD,
         },
       },
+
       from: EMAIL_FROM,
-      async sendVerificationRequest({ identifier, url }) {
+
+      async sendVerificationRequest({ identifier, url, provider }) {
         if (!process.env.NEXTAUTH_URL) {
           throw new Error('Can not send email because NEXTAUTH_URL is not set');
+        }
+
+        const isValidEmail = EMAIL_REGEX.test(identifier);
+
+        if (!isValidEmail) {
+          throw new Error('Invalid email address');
         }
 
         const magicTemplate = MagicLinkTemplate({
@@ -37,7 +45,9 @@ export const authOptions: NextAuthOptions = {
           baseUrl: process.env.NEXTAUTH_URL,
         });
 
-        await sendEmail({
+        const transporter = nodemailer.createTransport(provider.server);
+
+        await transporter.sendMail({
           to: identifier,
           subject: `Login to ${PROJECT_NAME}`,
           html: render(magicTemplate),

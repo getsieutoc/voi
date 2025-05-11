@@ -193,4 +193,4 @@ You can find the logs by using `docker-compose logs app`. The message http serve
 
 Just open your favorite browser and navigate to http://localhost. You should see a `voi` app.
 
-Congratulation! :tada:
+Congratulation! :tada: :tada:
