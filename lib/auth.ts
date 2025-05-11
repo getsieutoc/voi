@@ -1,7 +1,7 @@
 import { getServerSession, NextAuthOptions } from 'next-auth';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
+import { MagicLinkTemplate } from '@/emails/MagicLink';
 import EmailProvider from 'next-auth/providers/email';
-import MagicLinkTemplate from '@/emails/MagicLink';
 import { render } from '@react-email/render';
 import { cookies } from 'next/headers';
 import { prisma } from '@/lib/prisma';
@@ -50,8 +50,8 @@ export const authOptions: NextAuthOptions = {
         await transporter.sendMail({
           to: identifier,
           subject: `Login to ${PROJECT_NAME}`,
-          html: render(magicTemplate),
-          text: render(magicTemplate, { plainText: true }),
+          html: await render(magicTemplate),
+          text: await render(magicTemplate, { plainText: true }),
         });
       },
     }),
