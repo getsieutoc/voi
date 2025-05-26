@@ -40,6 +40,7 @@ next-env.d.ts
 /prisma/client
 
 # AI 
+.cline/
+.roo/
 /docs
 /tasks
-/.cline/

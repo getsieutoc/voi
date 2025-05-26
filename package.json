@@ -1,20 +1,19 @@
 {
-  "name": "taijutsu",
+  "name": "voi",
   "version": "0.0.0",
   "private": true,
   "scripts": {
     "prisma": "prisma",
-    "ui:add": "pnpm dlx shadcn-ui@latest add",
-    "ui:diff": "pnpm dlx shadcn-ui@latest diff",
     "postinstall": "prisma generate",
     "clean": "rimraf node_modules dist .next && pnpm install",
-    "compose": "docker compose -f docker-compose.dev.yml",
+    "compose": "docker compose -f docker/compose.develop.yml",
     "dev": "pnpm compose up -d && pnpm watch && pnpm compose stop",
     "watch": "trap 'exit 0' SIGINT; concurrently --raw --kill-others pnpm:dev:*",
     "dev:next": "next dev --turbo",
     "lint": "eslint ./ --ext .ts,.tsx",
     "build": "next build",
     "start": "next start",
+    "ui": "pnpm dlx shadcn-ui@latest",
     "typecheck": "tsc --noEmit"
   },
   "engines": {
