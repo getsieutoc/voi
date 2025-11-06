@@ -57,7 +57,7 @@ export const LoginByEmail = ({ isRequested }: LoginByEmailProps) => {
         { email, otp },
         {
           onSuccess: () => {
-            window.location.href = '/';
+            window.location.href = '/dashboard';
           },
           onError: (ctx) => {
             setError(ctx.error.message || 'Invalid OTP');
