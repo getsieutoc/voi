@@ -1,4 +1,5 @@
-import { PostWithPayload, Status } from '@/types';
+import { PostWithPayload } from '@/types';
+import { Status } from '@/prisma/client/client';
 import { globalSearchAtom } from '@/lib/jotai';
 import { queryStringify } from '@/lib/utils';
 import { useAtomValue } from 'jotai';

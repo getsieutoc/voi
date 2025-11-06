@@ -1,12 +1,14 @@
 'use client';
 
+import { useEffect, useRef, useState } from 'react';
+import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { useAuth, usePosts } from '@/hooks';
 import { Separator } from '@/components/ui';
 import { Status } from '@/prisma/client/enums';
+import { toast } from 'sonner';
+import { updatePostStatus } from '@/services/posts';
 
-import { QuickLookPost } from './quick-look-post';
-import { ActionMenu } from './action-menu';
-import { UpVote } from './up-vote';
+import { DraggablePost } from './draggable-post';
 
 export type RoadmapColumnProps = {
   status: Status;
@@ -14,8 +16,46 @@ export type RoadmapColumnProps = {
 
 export const RoadmapColumn = ({ status }: RoadmapColumnProps) => {
   const { user, isAdmin } = useAuth();
-
   const { posts, mutate } = usePosts(status);
+  const dropRef = useRef<HTMLDivElement>(null);
+  const [isDraggedOver, setIsDraggedOver] = useState(false);
+
+  useEffect(() => {
+    const element = dropRef.current;
+
+    if (!element || !isAdmin) {
+      return;
+    }
+
+    return dropTargetForElements({
+      element,
+      onDragEnter: () => setIsDraggedOver(true),
+      onDragLeave: () => setIsDraggedOver(false),
+      onDrop: async ({ source }) => {
+        setIsDraggedOver(false);
+
+        const data = source.data as {
+          postId: string;
+          currentStatus: Status;
+        };
+
+        // Don't update if dropping in the same column
+        if (data.currentStatus === status) {
+          return;
+        }
+
+        try {
+          await updatePostStatus(data.postId, status);
+          mutate();
+          toast.success('Post status updated successfully');
+        } catch (error) {
+          toast.error(
+            error instanceof Error ? error.message : 'Failed to update post'
+          );
+        }
+      },
+    });
+  }, [status, isAdmin, mutate]);
 
   return (
     <div className="flex h-full flex-col rounded-md border">
@@ -24,28 +64,22 @@ export const RoadmapColumn = ({ status }: RoadmapColumnProps) => {
       </h3>
       <Separator />
 
-      <div className="flex h-full max-h-full flex-col gap-4 overflow-auto px-4 py-2">
+      <div
+        ref={dropRef}
+        className={`flex h-full max-h-full flex-col gap-4 overflow-auto px-4 py-2 ${
+          isDraggedOver ? 'bg-slate-100 dark:bg-slate-800' : ''
+        }`}
+      >
         {posts &&
           posts.map((post) => {
             return (
-              <div key={post.id} className="flex items-center gap-2">
-                <UpVote
-                  postId={post.id}
-                  value={post._count.votes}
-                  onFinish={mutate}
-                />
-
-                <div className="flex flex-auto flex-col">
-                  <QuickLookPost post={post} />
-                  <p className="line-clamp-1 text-sm font-light">
-                    {post.description}
-                  </p>
-                </div>
-
-                {(isAdmin || user?.id === post.userId) && (
-                  <ActionMenu post={post} onFinish={mutate} />
-                )}
-              </div>
+              <DraggablePost
+                key={post.id}
+                post={post}
+                isAdmin={isAdmin}
+                userId={user?.id}
+                onFinish={mutate}
+              />
             );
           })}
       </div>

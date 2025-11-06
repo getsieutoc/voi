@@ -9,7 +9,8 @@ import {
   RadioGroup,
   RadioGroupItem,
 } from '@/components/ui';
-import { User, SubmitHandler, Prisma, Preferences } from '@/types';
+import { SubmitHandler, Preferences } from '@/types';
+import { User, Prisma } from '@/prisma/client/client';
 import { updateUser } from '@/services/users';
 import { useForm } from '@/hooks';
 

@@ -1,4 +1,4 @@
-import { Prisma } from '@/prisma/client';
+import { Prisma } from '@/prisma/client/client';
 
 export enum HttpMethod {
   CONNECT = 'CONNECT',

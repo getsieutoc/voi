@@ -12,7 +12,7 @@ import { useDisclosure, useLoading, useSWRConfig } from '@/hooks';
 import { deletePost } from '@/services/posts';
 import { queryStringify } from '@/lib/utils';
 import { Trash2 } from '@/components/icons';
-import { Post } from '@/types';
+import { Post } from '@/prisma/client/client';
 
 export const DeletePostDialog = ({
   post,

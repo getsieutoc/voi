@@ -3,7 +3,7 @@
 import { revalidatePath } from 'next/cache';
 import { getSession } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
-import { Prisma } from '@/types';
+import { Prisma } from '@/prisma/client/client';
 
 export type FindOneArgs =
   | { id: string; email?: never }

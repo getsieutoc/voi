@@ -8,7 +8,8 @@ import {
   FormMessage,
   Input,
 } from '@/components/ui';
-import { User, SubmitHandler } from '@/types';
+import { SubmitHandler } from '@/types';
+import { User } from '@/prisma/client/client';
 import { updateUser } from '@/services/users';
 import { useForm } from '@/hooks';
 

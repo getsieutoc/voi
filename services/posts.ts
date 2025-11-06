@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { getSession } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import deepmerge from 'deepmerge';
-import { Post } from '@/types';
+import { Post, Status } from '@/prisma/client/client';
 
 export async function createPost(
   input: Parameters<typeof prisma.post.create>[0]
@@ -68,6 +68,23 @@ export async function deletePost(id: string) {
   const response = await prisma.post.delete({ where: { id } });
 
   revalidatePath('/');
+
+  return response;
+}
+
+export async function updatePostStatus(postId: string, status: Status) {
+  const { user } = await getSession();
+
+  if (!user || user.role !== 'ADMIN') {
+    throw new Error('Unauthorized: Admin only');
+  }
+
+  const response = await prisma.post.update({
+    where: { id: postId },
+    data: { status },
+  });
+
+  revalidatePath('/dashboard');
 
   return response;
 }
