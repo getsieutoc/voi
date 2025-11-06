@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { useAuth, usePosts } from '@/hooks';
+import { useSWRConfig } from 'swr';
 import { Separator } from '@/components/ui';
 import { Status } from '@/prisma/client/enums';
 import { toast } from 'sonner';
@@ -16,7 +17,8 @@ export type RoadmapColumnProps = {
 
 export const RoadmapColumn = ({ status }: RoadmapColumnProps) => {
   const { user, isAdmin } = useAuth();
-  const { posts, mutate } = usePosts(status);
+  const { posts } = usePosts(status);
+  const { mutate: globalMutate } = useSWRConfig();
   const dropRef = useRef<HTMLDivElement>(null);
   const [isDraggedOver, setIsDraggedOver] = useState(false);
 
@@ -46,7 +48,12 @@ export const RoadmapColumn = ({ status }: RoadmapColumnProps) => {
 
         try {
           await updatePostStatus(data.postId, status);
-          mutate();
+          // Invalidate cache for all columns to remove ghost items
+          globalMutate(
+            (key) => typeof key === 'string' && key.startsWith('/api/search?'),
+            undefined,
+            { revalidate: true }
+          );
           toast.success('Post status updated successfully');
         } catch (error) {
           toast.error(
@@ -55,7 +62,7 @@ export const RoadmapColumn = ({ status }: RoadmapColumnProps) => {
         }
       },
     });
-  }, [status, isAdmin, mutate]);
+  }, [status, isAdmin, globalMutate]);
 
   return (
     <div className="flex h-full flex-col rounded-md border">
@@ -78,7 +85,12 @@ export const RoadmapColumn = ({ status }: RoadmapColumnProps) => {
                 post={post}
                 isAdmin={isAdmin}
                 userId={user?.id}
-                onFinish={mutate}
+                onFinish={() =>
+                  globalMutate(
+                    (key) =>
+                      typeof key === 'string' && key.startsWith('/api/search?')
+                  )
+                }
               />
             );
           })}
