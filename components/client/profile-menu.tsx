@@ -21,6 +21,7 @@ import {
 } from '@/components/icons';
 import { signOut } from '@/lib/auth-client';
 import NextLink from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export type ProfileIconProps = {
   user: {
@@ -32,8 +33,11 @@ export type ProfileIconProps = {
 };
 
 export const ProfileMenu = ({ user }: ProfileIconProps) => {
+  const router = useRouter();
+
   const handleSignOut = async () => {
     await signOut();
+    router.push('/');
   };
 
   return (

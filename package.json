@@ -58,6 +58,7 @@
     "next": "16.0.1",
     "next-themes": "0.4.6",
     "nodemailer": "7.0.3",
+    "pg": "^8.16.3",
     "qs": "6.11.2",
     "react": "18.3.1",
     "react-day-picker": "8.10.0",
