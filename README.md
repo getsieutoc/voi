@@ -13,26 +13,23 @@
 
 ## Features
 
-- Next.js 14
+- Next.js 16
 - TypeScript
 - ESLint
 - Prettier
 - Shadcn UI with Tailwind CSS
 - Postgresql with Prisma
-- Magic link login with Next-Auth
+- Email OTP authentication with Better-Auth
 
 ## Demo
 
-https://voi.up.railway.app
+<https://voi.up.railway.app>
 
 ## Getting Started
 
-### One-click Deploy
+### Deploy with Dokploy
 
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/kJ5jtI?referralCode=pwTZMY)
-
-> [!NOTE]
-> Currently the Dockerfile does not work well, so the template still uses the GitHub as source. If you could help, please suggest me a way. Thanks in advance.
+For easy deployment with Docker, we recommend using [Dokploy](https://dokploy.com) - a self-hosted platform that simplifies application deployment. Follow the Docker deployment instructions below and use Dokploy's interface to manage your deployment.
 
 ### Normal Installation
 
@@ -42,9 +39,9 @@ Then you can deploy like a simple Next.js app, there are lot of tutorial on Verc
 
 The environment variables you need:
 
-```
-NEXTAUTH_SECRET=topsecret
-NEXTAUTH_URL=https://yourdomain.com
+```bash
+BETTER_AUTH_SECRET=topsecret
+BETTER_AUTH_URL=https://yourdomain.com
 DATABASE_URL=postgres://....
 
 SMTP_USER=yoursmtpuser
@@ -105,7 +102,7 @@ pnpm ui:add <compnent-name>
 pnpm ui:diff <component-name>
 ```
 
-#### Start developing!
+#### Start developing
 
 Open [http://localhost:3000](http://localhost:3000) with your browser and start developing.
 
@@ -113,6 +110,37 @@ Open [http://localhost:3000](http://localhost:3000) with your browser and start 
 
 - This project uses `App Router` feature.
 - We try to take adventage of Next.js's ecosystem, thus most of the features here are built on top of Next.js best practices.
+
+## Releases
+
+Docker images are automatically built and published to [GitHub Container Registry](https://github.com/getsieutoc/voi/pkgs/container/voi) on every release.
+
+### Creating a new release
+
+To publish a new version, create and push a git tag:
+
+```bash
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+The GitHub Actions workflow will automatically:
+
+- Build the Docker image
+- Push to `ghcr.io/getsieutoc/voi` with tags: `latest`, `v1.0.0`, and `1.0.0`
+- Make the image publicly available
+
+### Using specific versions
+
+You can use specific versions in your docker-compose.yml:
+
+```yaml
+# Use latest version
+image: ghcr.io/getsieutoc/voi:latest
+
+# Use specific version
+image: ghcr.io/getsieutoc/voi:v1.0.0
+```
 
 ## Deploy with Docker
 
@@ -149,14 +177,14 @@ services:
 
   app:
     container_name: voi-app
-    image: sieutoc/voi:latest
+    image: ghcr.io/getsieutoc/voi:latest
     restart: always
     ports:
       - "80:3000"
     environment:
       # Needed for authentication
-      NEXTAUTH_SECRET: topsecret
-      NEXTAUTH_URL: http://localhost:3000
+      BETTER_AUTH_SECRET: topsecret
+      BETTER_AUTH_URL: http://localhost
 
       # Connection string to the PostgreSQL database
       DATABASE_URL: postgres://postgresuser:yourpostgrespassword@db:5432/postgresdb
@@ -182,13 +210,13 @@ The Docker Compose file above defines two services: `postgres` and `app`. In cas
 
 Open your favorite terminal, navigate to `voi` folder and run
 
-```
+```bash
 docker compose pull
 docker compose up -d
 ```
 
 You can find the logs by using `docker-compose logs app`. The message http server started on :3000 means everything is ok and you're ready to go.
 
-Just open your favorite browser and navigate to http://localhost. You should see a `voi` app.
+Just open your favorite browser and navigate to <http://localhost>. You should see a `voi` app.
 
 Congratulation! :tada: :tada:
