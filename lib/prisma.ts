@@ -1,4 +1,9 @@
+'use server';
+
+import { PrismaPg } from '@prisma/adapter-pg';
 import { PrismaClient } from '@/prisma/client';
+
+const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
 
 declare global {
   // We need var in declare global
@@ -6,7 +11,7 @@ declare global {
   var prisma: PrismaClient | undefined;
 }
 
-const prisma = global.prisma || new PrismaClient();
+const prisma = global.prisma || new PrismaClient({ adapter });
 
 if (process.env.NODE_ENV === 'development') {
   global.prisma = prisma;
