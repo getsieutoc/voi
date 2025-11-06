@@ -114,24 +114,90 @@ Open [http://localhost:3000](http://localhost:3000) with your browser and start 
 
 ## Releases
 
-Docker images are automatically built and published to [GitHub Container Registry](https://github.com/getsieutoc/voi/pkgs/container/voi) on every release.
+This project uses automated releases powered by [semantic-release](https://github.com/semantic-release/semantic-release) and follows [Conventional Commits](https://www.conventionalcommits.org/) specification.
 
-### Creating a new release
+### How Releases Work
 
-To publish a new version, create and push a git tag:
+Every push to the `master` branch triggers an automated release process that:
 
-```bash
-git tag v1.0.0
-git push origin v1.0.0
+1. Analyzes commit messages to determine the version bump
+2. Generates/updates the `CHANGELOG.md` file
+3. Creates a GitHub release with release notes
+4. Updates the version in `package.json`
+
+### Commit Message Format
+
+Follow the Conventional Commits format for your commit messages:
+
+```
+<type>(<scope>): <subject>
+
+<body>
+
+<footer>
 ```
 
-The GitHub Actions workflow will automatically:
+#### Types
 
-- Build the Docker image
-- Push to `ghcr.io/getsieutoc/voi` with tags: `latest`, `v1.0.0`, and `1.0.0`
-- Make the image publicly available
+- `feat`: A new feature (triggers **minor** version bump: 0.1.0 → 0.2.0)
+- `fix`: A bug fix (triggers **patch** version bump: 0.1.0 → 0.1.1)
+- `perf`: Performance improvements (triggers **patch** version bump)
+- `refactor`: Code refactoring (triggers **patch** version bump)
+- `docs`: Documentation changes (no release)
+- `style`: Code style changes (no release)
+- `test`: Adding or updating tests (no release)
+- `chore`: Maintenance tasks (no release)
+- `ci`: CI/CD changes (no release)
+- `build`: Build system changes (no release)
+- `revert`: Reverting previous changes (triggers **patch** version bump)
 
-### Using specific versions
+#### Breaking Changes
+
+For breaking changes, add `!` after the type or include `BREAKING CHANGE:` in the footer to trigger a **major** version bump:
+
+```bash
+# Example 1: Using !
+git commit -m "feat!: redesign authentication API"
+
+# Example 2: Using footer
+git commit -m "feat: redesign authentication API
+
+BREAKING CHANGE: The authentication API endpoints have been completely redesigned."
+```
+
+#### Examples
+
+```bash
+# Feature (minor bump: 0.1.0 → 0.2.0)
+git commit -m "feat: add dark mode toggle"
+git commit -m "feat(auth): add social login with Google"
+
+# Bug fix (patch bump: 0.1.0 → 0.1.1)
+git commit -m "fix: resolve navigation menu overflow on mobile"
+git commit -m "fix(api): handle null values in user profile"
+
+# Performance improvement (patch bump)
+git commit -m "perf: optimize image loading with lazy loading"
+
+# No release
+git commit -m "docs: update installation instructions"
+git commit -m "chore: upgrade dependencies"
+git commit -m "style: format code with prettier"
+```
+
+### Commit Message Validation
+
+Husky and commitlint are configured to validate your commit messages. If your commit message doesn't follow the Conventional Commits format, the commit will be rejected with a helpful error message.
+
+### Manual Versioning
+
+In most cases, you don't need to manually update the version. However, if you need to force a specific version, you can do so using semantic-release's environment variables in the GitHub Actions workflow.
+
+### Docker Images
+
+Docker images are automatically built and published to [GitHub Container Registry](https://github.com/getsieutoc/voi/pkgs/container/voi) on every release.
+
+#### Using Specific Versions
 
 You can use specific versions in your docker-compose.yml:
 
