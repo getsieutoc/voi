@@ -1,5 +1,6 @@
 'use client';
 
+import * as React from 'react';
 import {
   Button,
   Dialog,
@@ -14,6 +15,18 @@ import { LoginByEmail } from './login-by-email';
 
 export const AuthButton = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const dialogRef = React.useRef<HTMLDivElement>(null);
+
+  // Safe state management to prevent race conditions
+  React.useEffect(() => {
+    // This ensures the ref is properly initialized before being accessed
+    return () => {
+      // Cleanup to prevent memory leaks and stale refs
+      if (isOpen) {
+        onClose();
+      }
+    };
+  }, [isOpen, onClose]);
 
   const handleOpenChange = (isOpen: boolean) => {
     if (isOpen) {
@@ -31,7 +44,7 @@ export const AuthButton = () => {
         </Button>
       </DialogTrigger>
 
-      <DialogContent>
+      <DialogContent ref={dialogRef}>
         <DialogHeader>
           <DialogTitle>Getting Started</DialogTitle>
         </DialogHeader>

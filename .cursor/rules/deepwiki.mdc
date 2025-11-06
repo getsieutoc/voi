@@ -1,0 +1,31 @@
+---
+alwaysApply: true
+---
+
+# DeepWiki Research Rule
+
+Before starting any implementation, always perform a DeepWiki research phase.
+
+## Process
+
+1. Identify all key topics/concepts in the request.
+2. Use the DeepWiki MCP tools in this order as needed:
+   - `read_wiki_structure`: Get the list of relevant documentation topics.
+   - `read_wiki_contents`: Retrieve detailed docs for those topics.
+   - `ask_question`: Clarify gaps or ambiguities with AI-grounded answers.
+3. Summarize findings clearly before writing any code or content.
+4. Base all implementation decisions on the research results.
+5. If DeepWiki is unavailable, notify the user before proceeding.
+
+This rule applies to all code, documentation, and content work.
+
+### Integrated Research Workflow
+
+- **DeepWiki Phase**: Use `@deepwiki.mdc` for general research and topic
+   exploration
+- **Implementation**: Combine insights from both research phases
+
+### Avoiding Redundancy
+
+- Use DeepWiki first for broad understanding
+- Don't duplicate research phases - coordinate them

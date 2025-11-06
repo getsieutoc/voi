@@ -1,0 +1,21 @@
+---
+description: Implementing designs and building UI components
+alwaysApply: false
+---
+# UI Components Rule
+
+- Reuse existing UI components from `@/components/ui`, these are the primitives we can build with
+- Ask the human how they want to proceed when there are missing components and designs
+
+## Finding Existing Components
+
+- search for the closest `./components/` directory first,
+- if you can't find suitable components, try to search further up the directory tree
+- up until you find the `@/components/` directory
+
+## Creating New Components
+
+- perform the "Finding Existing Components" steps first
+- only create new component if you can't find any existing components that solves the problem
+- put the new component in the closest `components` directory that needs it
+- only put into `@/components/<new-name>` if it's common enough to be reused in other components

@@ -1,0 +1,46 @@
+---
+description: Enforce test-driven development (TDD) with atomic steps and user
+  verification at each stage
+alwaysApply: false
+---
+
+# Test-Driven Development Rule
+
+Enforce test-driven development practices with atomic steps and user verification.
+
+## Core Principles
+
+- **ALWAYS START WITH TESTS**: Plan and write tests BEFORE writing
+  implementation code
+- **ATOMIC TEST STEPS**: Write ONE test at a time, keep each test focused on a
+  single behavior
+- **USER VERIFICATION REQUIRED**: Wait for user verification after each test
+  before proceeding
+- **COVERAGE REQUIREMENTS**: Aim for full or near-full test coverage with edge
+  cases
+
+## TDD Workflow
+
+1. **Red**: Write failing test for new feature/behavior
+2. **STOP**: Get user verification and approval
+3. **Green**: Write minimal code to pass test
+4. **STOP**: Run all tests, get user verification
+5. **Refactor**: Improve code while keeping tests green
+6. **STOP**: Run all tests, get user verification
+7. **Repeat**: Continue with next atomic feature
+
+## Test File Organization
+
+- Place test files next to their corresponding components
+- Use `.test.tsx` suffix for component tests (e.g., `demo.tsx` → `demo.test.tsx`)
+- Co-locate tests with source files for better maintainability
+- Follow existing test structure in codebase
+
+## Continuous Testing
+
+- Any change to source directories automatically runs tests
+- Must address test failures before continuing development
+- Ensures continuous validation and early error detection
+
+Always prioritize safety, incremental progress, and measurable improvement
+through systematic test-driven development.

@@ -1,0 +1,75 @@
+---
+alwaysApply: true
+---
+
+# IMPLEMENTATION RULE
+
+## PRE-IMPLEMENTATION CHECKLIST
+
+- Read `docs/active-context.md` for current context
+- Research using `@deepwiki.mdc`
+- Assess scope, criticality, and impact
+
+## CORE PRINCIPLES
+
+- **Context-First**: Search existing solutions before building new
+- **Security by Design**: Validate inputs, follow least privilege
+- **Modular Design**: Break complex problems into manageable pieces
+- **Incremental Progress**: Make small, verifiable changes
+- **Documentation**: Keep decisions and rationale accessible
+
+## IMPLEMENTATION APPROACH
+
+### 1. ANALYSIS
+
+- **Scope**: Local/Cross-component/System-wide
+- **Criticality**: Experimental/Important/Mission-critical
+- **Dependencies**: Direct, reverse, hidden, external
+- **Risks**: Security, performance, reliability, compatibility
+
+### 2. DESIGN
+
+- **Reversibility**: Can change be safely undone?
+- **Observability**: How to monitor success?
+- **Testability**: How to validate functionality?
+- **Scalability**: How will it perform under load?
+
+### 3. EXECUTION
+
+- **Understand**: Map current state and stakeholders
+- **Plan**: Design approach with validation strategy
+- **Build**: Make small, verifiable changes
+- **Validate**: Test in appropriate environments
+- **Deploy**: Monitor and have rollback ready
+
+### 4. QUALITY CHECK
+
+- **Functional**: Does it work as intended?
+- **Technical**: Is code maintainable and well-structured?
+- **Security**: Are best practices followed?
+- **Performance**: Does it meet requirements?
+
+## POST-IMPLEMENTATION
+
+- Update documentation in `docs`
+- Capture lessons learned and patterns
+
+## IMPLEMENTATION MINDSET
+
+Balance speed with sustainability, innovation with reliability. Adapt
+principles to your specific context and technology stack.
+
+## ADAPTIVE APPLICATION
+
+### For Simple Tasks (Quick fixes, single questions)
+
+- Apply core principles lightly
+- Focus on context-first and security by design
+- Skip full workflow for straightforward changes
+
+### For Complex Tasks (Features, refactoring, multi-session work)
+
+- Follow complete implementation approach
+- Use full analysis, design, execution, and quality check
+- Integrate with system-memory and other specialized rules
+- Maintain comprehensive documentation

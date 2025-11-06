@@ -1,0 +1,162 @@
+---
+alwaysApply: true
+---
+
+# Documentation Update Policy
+
+## Hard Rules
+
+- ALWAYS update documentation after significant code changes
+- Review ALL documentation files when core functionality changes
+- Update README.md to reflect current implementation state
+- **MANDATORY**: Update `docs/active-context.md` for EVERY implementation task
+- Remove outdated information immediately when discovered
+- Keep documentation synchronized with codebase reality
+
+## Active Context Integration
+
+The `docs/active-context.md` file serves as the **single source of truth** for
+current development status to prevent duplicate work and maintain project
+awareness.
+
+### Automatic Context Updates Required
+
+**MUST update `docs/active-context.md` when:**
+
+1. **Starting any new implementation task**
+   - Document what's being worked on
+   - Record current state and progress
+   - Note any blockers or dependencies
+
+2. **After implementing new features**
+   - Update completed work status
+   - Document new components/services created
+   - Note any architectural changes
+
+3. **After modifying existing features**
+   - Document changes made
+   - Update feature status
+   - Note any breaking changes
+
+4. **When encountering issues or blockers**
+   - Document problems found
+   - Update workaround solutions
+   - Note follow-up tasks needed
+
+5. **Before starting work** (Critical Anti-Duplication Step)
+   - Read `docs/active-context.md` first
+   - Check if work is already in progress or completed
+   - Avoid reinventing the wheel
+
+### Active Context File Structure
+
+The `docs/active-context.md` should include:
+
+```markdown
+# Active Development Context
+
+## Current Focus
+- **Active Task**: [Current implementation]
+- **Status**: [In Progress/Completed/Blocked]
+- **Started**: [Date/Time]
+- **Expected Completion**: [Date/Time]
+
+## Recent Work Completed
+- [List of recently completed items with dates]
+
+## Work In Progress
+- [List of current tasks with status]
+
+## Known Issues & Solutions
+- [Document problems and their solutions]
+
+## Next Steps
+- [Planned upcoming work]
+
+## Architecture Notes
+- [Recent architectural decisions/changes]
+```
+
+## Implementation Workflow Integration
+
+### Pre-Implementation Checklist
+
+1. **Read `docs/active-context.md`** - Check if work is already done/in progress
+2. **Check git history** - Verify recent changes and patterns
+3. **Identify scope** - Determine documentation impact
+4. **Update context** - Document what you're about to work on
+
+### During Implementation
+
+- **Update context regularly** - Mark progress and note issues
+- **Document decisions** - Record architectural or design choices
+- **Track dependencies** - Note blocking issues or external dependencies
+
+### Post-Implementation Checklist
+
+1. **Update `docs/active-context.md`** with completed work
+2. **Review documentation hierarchy** and update as needed
+3. **Verify all examples and instructions**仍work
+4. **Remove obsolete content**
+5. **Update README.md** if user-facing changes
+
+## Triggers
+
+- After implementing new features or major changes
+- When modifying core architecture or workflows
+- After adding/removing dependencies or services
+- When deployment procedures change
+- After updating API endpoints or data models
+- When git commits introduce breaking changes
+- **Before starting ANY implementation work**
+
+## Documentation Hierarchy (update in order)
+
+1. **`docs/active-context.md`** - Current development status (ALWAYS FIRST)
+2. **README.md** - Main project overview and quick start
+3. **docs/architecture.md** - System design and component relationships  
+4. **docs/requirements.md** - Project goals and specifications
+5. **API documentation** - Endpoint specs and examples
+6. **Setup guides** - Installation and configuration steps
+
+## Decision Check (before completing any task)
+
+- **CRITICAL**: Have I read `docs/active-context.md` to check for existing work?
+- Have I made changes that affect user setup or usage? → Update README.md
+- Have I modified core architecture? → Update architecture docs
+- Have I changed APIs or data models? → Update API documentation
+- Have I added new features? → Update user guides and examples
+- **HAVE I updated `docs/active-context.md` with current work status?**
+
+## Quality Standards
+
+- All commands and examples MUST be tested and working
+- Use clear, concise language following GitHub markdown best practices
+- Respect the markdown lint best practices when creating documentation
+- Include code blocks with proper syntax highlighting
+- Provide context for why things work the way they do
+- Link related sections and external resources appropriately
+- **Maintain consistent timestamping in active-context.md**
+
+## Prohibited
+
+- Starting implementation without reading `docs/active-context.md`
+- Leaving `docs/active-context.md` out of date
+- Creating duplicate functionality without checking documentation first
+- Leaving outdated setup instructions
+- Including broken or untested examples
+- Generic placeholder content
+- Inconsistent information between docs
+- Missing critical setup steps or dependencies
+
+## Anti-Duplication Strategy
+
+This documentation policy specifically prevents:
+
+- Reinventing already completed features
+- Working on tasks already in progress
+- Missing architectural decisions made by other work
+- Creating duplicate implementations
+- Wasting time on solved problems
+
+**Remember: Always read the active context first, then work, then update it.**

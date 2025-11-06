@@ -1,0 +1,89 @@
+---
+alwaysApply: false
+---
+# Memory System Rule
+
+## Memory Files Structure
+
+Maintain system memory using documentation files to overcome context loss
+between sessions and maintain continuity across complex development work.
+
+## Essential Files
+
+1. **Active Context** (`docs/active-context.md`):
+   - Current work focus and progress
+   - Recent changes and decisions
+   - Next immediate steps
+   - Known blockers
+
+2. **Requirements** (`docs/requirements.md`):
+   - Why this system exists
+   - Core requirements and goals
+   - Project scope boundaries
+
+3. **Architecture** (`docs/architecture.md`):
+   - System design and component relationships
+   - Key dependencies and workflows
+   - Technical constraints
+
+4. **Task Planning** (`docs/planning.md`):
+   - Task list and current status
+   - What works, what needs building
+   - Known issues and their status
+
+## Session Management
+
+### Session Start
+
+- Read `active-context.md` first
+- Check current task status in `planning.md`
+- Verify environment and dependencies
+
+### Session Work
+
+- Update `active-context.md` with progress
+- Document decisions and changes
+- Note any blockers or issues
+
+### Session End
+
+- Update `active-context.md` with current state
+- Note next steps and priorities
+- Save any pending decisions
+
+## Key Practices
+
+### Documentation Updates
+
+Update memory files when:
+
+- Starting new implementation work
+- After completing significant changes
+- When encountering blockers or issues
+- Before major refactoring or architecture changes
+- At session boundaries
+
+### What to Capture
+
+- **Technical Decisions**: Why choices were made, not just what
+- **Known Issues**: Problems and their current resolution status
+- **Context Links**: How current work relates to previous sessions
+- **Environment State**: Git branch, open files, pending changes
+
+### Context Continuity
+
+- Always read existing documentation before starting work
+- Document current state before making major changes
+- Keep decision rationale for future reference
+- Link related work across sessions
+
+## Anti-Duplication Strategy
+
+This system prevents:
+
+- Reinventing completed features
+- Working on tasks already in progress
+- Missing previous architectural decisions
+- Losing context between sessions
+
+**Remember: Read the active context first, work, then update it.**

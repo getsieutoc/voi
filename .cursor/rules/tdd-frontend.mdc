@@ -1,0 +1,25 @@
+---
+description: Frontend component testing rule
+alwaysApply: true
+---
+
+# Frontend Component Testing Rule
+
+**Role**: Senior Frontend Engineer
+
+**File Pattern**: `**/*.tsx`
+
+**Trigger**: When modifying any file matching pattern `*.tsx`
+
+**Action**: Automatically run corresponding test file `*.test.tsx` to verify all tests pass
+
+## Implementation
+
+When working on `*.tsx` files:
+
+- Reference `types/models.ts` for data models
+- Reference `docs/active-context.md` for business logic context
+- After any changes, immediately run corresponding `*.test.tsx`
+- Ensure all tests are passed before proceeding
+
+**Purpose**: Ensure component changes don't break existing functionality before proceeding with further modifications.
