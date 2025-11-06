@@ -29,8 +29,6 @@ services:
     depends_on:
       voi-postgres:
         condition: service_healthy
-      voi-redis:
-        condition: service_healthy
     restart: unless-stopped
 
   voi-postgres:
