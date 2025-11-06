@@ -1,4 +1,4 @@
-import { Role } from '@/types';
+import { Role } from '@/prisma/client/enums';
 import { useSession } from '@/lib/auth-client';
 
 export const useAuth = () => {

@@ -21,7 +21,10 @@ import {
   SelectValue,
   Textarea,
 } from '@/components/ui';
-import { Post, PostWithPayload, SubmitHandler, Status } from '@/types';
+import { type Post } from '@/prisma/client/client';
+import { type PostWithPayload } from '@/types';
+import { SubmitHandler } from 'react-hook-form';
+import { Status } from '@/prisma/client/enums';
 import { useAuth, useDisclosure, useForm, usePosts } from '@/hooks';
 import { updatePost } from '@/services/posts';
 import { Pencil } from '@/components/icons';

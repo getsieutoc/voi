@@ -1,4 +1,4 @@
-import { Status } from '@/types';
+import { Status } from '@/prisma/client/enums';
 
 import { RoadmapColumn } from './roadmap-column';
 import { GlobalSearch } from './global-search';

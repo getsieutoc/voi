@@ -18,7 +18,9 @@ import {
   Textarea,
 } from '@/components/ui';
 import { useAuth, useDisclosure, useForm, usePosts } from '@/hooks';
-import { Status, Post, SubmitHandler } from '@/types';
+import { Status } from '@/prisma/client/enums';
+import { type Post } from '@/prisma/client/client';
+import { SubmitHandler } from 'react-hook-form';
 import { createPost } from '@/services/posts';
 import { Plus } from '@/components/icons';
 

@@ -5,7 +5,7 @@ import { emailOTP } from 'better-auth/plugins/email-otp';
 import { prisma } from '@/lib/prisma';
 import { sendEmail } from '@/lib/nodemailer';
 import { headers } from 'next/headers';
-import { Role } from '@/types';
+import { Role } from '@/prisma/client/enums';
 import { PROJECT_NAME } from './constants';
 
 export const auth = betterAuth({
