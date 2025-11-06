@@ -10,18 +10,6 @@ export const Roadmap = () => {
         <div className="max-w-[300px] flex-auto">
           <GlobalSearch />
         </div>
-
-        {/* <Popover> */}
-        {/*   <PopoverTrigger asChild> */}
-        {/*     <Button disabled size="sm" variant="outline"> */}
-        {/*       <Filter className="h-4" /> */}
-        {/*       Filter */}
-        {/*     </Button> */}
-        {/*   </PopoverTrigger> */}
-        {/*   <PopoverContent side="left" align="start" className="text-sm"> */}
-        {/*     Filter is under construction */}
-        {/*   </PopoverContent> */}
-        {/* </Popover> */}
       </div>
 
       <div className="grid h-full grid-cols-3 gap-4">

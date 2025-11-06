@@ -2,7 +2,7 @@
 
 import { useAuth, usePosts } from '@/hooks';
 import { Separator } from '@/components/ui';
-import { Status } from '@/types';
+import { Status } from '@/prisma/client/enums';
 
 import { QuickLookPost } from './quick-look-post';
 import { ActionMenu } from './action-menu';
