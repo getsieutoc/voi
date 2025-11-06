@@ -42,6 +42,7 @@ The environment variables you need:
 ```bash
 BETTER_AUTH_SECRET=topsecret
 BETTER_AUTH_URL=https://yourdomain.com
+NEXT_PUBLIC_BASE_URL=https://yourdomain.com
 DATABASE_URL=postgres://....
 
 SMTP_USER=yoursmtpuser
