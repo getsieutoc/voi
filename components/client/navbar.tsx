@@ -9,7 +9,7 @@ import { AuthButton } from './auth-button';
 import { Logo } from './logo';
 
 export const Navbar = () => {
-  const { session, isAuthenticated, isLoading } = useAuth();
+  const { user, isAuthenticated, isLoading } = useAuth();
 
   return (
     <div className="flex w-full items-center justify-between">
@@ -21,7 +21,7 @@ export const Navbar = () => {
         <div className="flex justify-between gap-12">
           {isAuthenticated && <CreateNewPostButton />}
 
-          {session ? <ProfileMenu user={session.user} /> : <AuthButton />}
+          {user ? <ProfileMenu user={user} /> : <AuthButton />}
         </div>
       )}
     </div>

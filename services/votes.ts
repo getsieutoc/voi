@@ -14,9 +14,9 @@ import { prisma } from '@/lib/prisma';
 export async function createVote(
   input: Parameters<typeof prisma.vote.create>[0]
 ) {
-  const { session } = await getSession();
+  const { user } = await getSession();
 
-  if (!session) {
+  if (!user) {
     throw new Error('Unauthorized');
   }
 

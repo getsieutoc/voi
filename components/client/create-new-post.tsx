@@ -33,7 +33,7 @@ type Inputs = typeof defaultValues;
 export const CreateNewPostButton = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { session } = useAuth();
+  const { user } = useAuth();
 
   const { mutate } = usePosts(Status.REVIEW);
 
@@ -52,13 +52,13 @@ export const CreateNewPostButton = () => {
   const isDisabled = form.formState.isSubmitting || !form.formState.isDirty;
 
   const onSubmit: SubmitHandler<Inputs> = async (input) => {
-    if (!session) return;
+    if (!user) return;
 
     const result = await createPost({
       data: {
         ...input,
         user: {
-          connect: { id: session.user.id },
+          connect: { id: user.id },
         },
       },
     });

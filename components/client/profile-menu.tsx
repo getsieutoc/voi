@@ -19,12 +19,16 @@ import {
   User,
   CircleUserRound,
 } from '@/components/icons';
-import { signOut } from 'next-auth/react';
-import { Session } from 'next-auth';
+import { signOut } from '@/lib/auth-client';
 import NextLink from 'next/link';
 
 export type ProfileIconProps = {
-  user: Session['user'];
+  user: {
+    id: string;
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
+  };
 };
 
 export const ProfileMenu = ({ user }: ProfileIconProps) => {

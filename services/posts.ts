@@ -9,9 +9,9 @@ import { Post } from '@/types';
 export async function createPost(
   input: Parameters<typeof prisma.post.create>[0]
 ) {
-  const { session } = await getSession();
+  const { user } = await getSession();
 
-  if (!session) {
+  if (!user) {
     throw new Error('Unauthorized');
   }
 
@@ -47,9 +47,9 @@ export async function findPosts(input: PostFindManyArgs = {}) {
 }
 
 export async function updatePost(id: string, data: Partial<Post>) {
-  const { session } = await getSession();
+  const { user } = await getSession();
 
-  if (!session) {
+  if (!user) {
     throw new Error('Unauthorized');
   }
 
@@ -59,9 +59,9 @@ export async function updatePost(id: string, data: Partial<Post>) {
 }
 
 export async function deletePost(id: string) {
-  const { session } = await getSession();
+  const { user } = await getSession();
 
-  if (!session) {
+  if (!user) {
     throw new Error('Unauthorized');
   }
 

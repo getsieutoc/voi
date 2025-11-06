@@ -6,15 +6,15 @@ import { getSession } from '@/lib/auth';
 import { NotificationsForm, ProfileForm } from '@/components/client';
 
 export default async function ProfilePage() {
-  const { session } = await getSession();
+  const { user } = await getSession();
 
-  if (!session) {
+  if (!user) {
     redirect('/');
   }
 
-  const user = await findOneUser({ id: session.user.id });
+  const fullUser = await findOneUser({ id: user.id });
 
-  if (!user) {
+  if (!fullUser) {
     return (
       <div>
         <p>Something is wrong, please refresh the page.</p>
@@ -32,9 +32,9 @@ export default async function ProfilePage() {
       <Separator />
 
       <div className="grid grid-cols-2 gap-16">
-        <ProfileForm user={user} />
+        <ProfileForm user={fullUser} />
 
-        <NotificationsForm user={user} />
+        <NotificationsForm user={fullUser} />
       </div>
     </div>
   );

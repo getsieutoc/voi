@@ -13,7 +13,7 @@ export type RoadmapColumnProps = {
 };
 
 export const RoadmapColumn = ({ status }: RoadmapColumnProps) => {
-  const { session, isAdmin } = useAuth();
+  const { user, isAdmin } = useAuth();
 
   const { posts, mutate } = usePosts(status);
 
@@ -42,7 +42,7 @@ export const RoadmapColumn = ({ status }: RoadmapColumnProps) => {
                   </p>
                 </div>
 
-                {(isAdmin || session?.user.id === post.userId) && (
+                {(isAdmin || user?.id === post.userId) && (
                   <ActionMenu post={post} onFinish={mutate} />
                 )}
               </div>

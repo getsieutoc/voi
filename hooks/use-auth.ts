@@ -1,14 +1,14 @@
 import { Role } from '@/types';
-import { useSession } from 'next-auth/react';
+import { useSession } from '@/lib/auth-client';
 
-export type UseAuthOptions = Parameters<typeof useSession>[0];
+export const useAuth = () => {
+  const { data, isPending, error } = useSession();
 
-export const useAuth = (options?: UseAuthOptions) => {
-  const { data: session, status, ...rest } = useSession(options);
+  const session = data?.session ?? null;
+  const user = data?.user ?? null;
+  const isLoading = isPending;
+  const isAuthenticated = !!session && !!user;
+  const isAdmin = user?.role === Role.ADMIN;
 
-  const isLoading = status === 'loading';
-  const isAuthenticated = !!session && status === 'authenticated';
-  const isAdmin = session?.user.role === Role.ADMIN;
-
-  return { ...rest, session, status, isAuthenticated, isAdmin, isLoading };
+  return { session, user, isAuthenticated, isAdmin, isLoading, error };
 };

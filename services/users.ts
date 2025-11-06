@@ -10,9 +10,9 @@ export type FindOneArgs =
   | { email: string; id?: never };
 
 export async function findOneUser({ id, email }: FindOneArgs) {
-  const { session } = await getSession();
+  const { user } = await getSession();
 
-  if (!session) {
+  if (!user) {
     throw new Error('Unauthorized');
   }
 
@@ -38,9 +38,9 @@ export async function updateUser(
   data: Prisma.UserUpdateInput,
   options?: { revalidatePath: string }
 ) {
-  const { session } = await getSession();
+  const { user } = await getSession();
 
-  if (!session) {
+  if (!user) {
     throw new Error('Unauthorized');
   }
 

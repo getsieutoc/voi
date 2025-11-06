@@ -1,109 +1,64 @@
-import { getServerSession, NextAuthOptions } from 'next-auth';
-import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import { MagicLinkTemplate } from '@/emails/MagicLink';
-import EmailProvider from 'next-auth/providers/email';
-import { render } from '@react-email/render';
-import { cookies } from 'next/headers';
+import { betterAuth } from 'better-auth';
+import { prismaAdapter } from 'better-auth/adapters/prisma';
+import { admin } from 'better-auth/plugins/admin';
+import { emailOTP } from 'better-auth/plugins/email-otp';
 import { prisma } from '@/lib/prisma';
+import { sendEmail } from '@/lib/nodemailer';
+import { render } from '@react-email/render';
+import { OtpEmailTemplate } from '@/emails/otp-email';
+import { headers } from 'next/headers';
 import { Role } from '@/types';
-import nodemailer from 'nodemailer';
 
-import { EMAIL_FROM, EMAIL_REGEX, PROJECT_NAME } from './constants';
-import { AdapterUser } from 'next-auth/adapters';
+export const auth = betterAuth({
+  database: prismaAdapter(prisma, {
+    provider: 'postgresql',
+  }),
 
-export const authOptions: NextAuthOptions = {
-  secret: process.env.NEXTAUTH_SECRET,
+  emailAndPassword: {
+    enabled: false, // We're using Email OTP instead
+  },
 
-  adapter: PrismaAdapter(prisma),
+  plugins: [
+    emailOTP({
+      async sendVerificationOTP({ email, otp, type }) {
+        const otpTemplate = OtpEmailTemplate({ otp, type });
 
-  providers: [
-    EmailProvider({
-      server: {
-        host: process.env.SMTP_HOST,
-        port: Number(process.env.SMTP_PORT),
-        auth: {
-          user: process.env.SMTP_USER,
-          pass: process.env.SMTP_PASSWORD,
-        },
-      },
-
-      from: EMAIL_FROM,
-
-      async sendVerificationRequest({ identifier, url, provider }) {
-        if (!process.env.NEXTAUTH_URL) {
-          throw new Error('Can not send email because NEXTAUTH_URL is not set');
-        }
-
-        const isValidEmail = EMAIL_REGEX.test(identifier);
-
-        if (!isValidEmail) {
-          throw new Error('Invalid email address');
-        }
-
-        const magicTemplate = MagicLinkTemplate({
-          confirmUrl: url,
-          baseUrl: process.env.NEXTAUTH_URL,
-        });
-
-        const transporter = nodemailer.createTransport(provider.server);
-
-        await transporter.sendMail({
-          to: identifier,
-          subject: `Login to ${PROJECT_NAME}`,
-          html: await render(magicTemplate),
-          text: await render(magicTemplate, { plainText: true }),
+        await sendEmail({
+          to: email,
+          subject: `Your login code`,
+          html: await render(otpTemplate),
+          text: await render(otpTemplate, { plainText: true }),
         });
       },
+      otpLength: 6,
+      expiresIn: 300, // 5 minutes
+    }),
+
+    admin({
+      defaultRole: 'member',
     }),
   ],
 
-  session: { strategy: 'jwt' },
-
-  callbacks: {
-    signIn: async ({ account, email }) => {
-      if (account && account.provider === 'email') {
-        const cookieStore = cookies();
-        cookieStore.set('verificationRequest', `${!!email}`);
-
-        return true;
-      }
-
-      return false;
-    },
-
-    jwt: async ({ token, user, account }) => {
-      if (account) {
-        token.account = account;
-      }
-
-      if (user) {
-        token.user = user;
-      }
-
-      return token;
-    },
-
-    session: async ({ session, token }) => {
-      if (token && token.user) {
-        session.user = {
-          ...session.user,
-          id: token.sub as string, // we can be sure sub is inside token
-          role: (token.user as AdapterUser).role,
-        };
-      }
-
-      return session;
-    },
+  session: {
+    expiresIn: 60 * 60 * 24 * 7, // 7 days
+    updateAge: 60 * 60 * 24, // 1 day
   },
-};
+
+  advanced: {
+    cookiePrefix: 'voi',
+  },
+});
 
 export async function getSession() {
-  const session = await getServerSession(authOptions);
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
 
   const isAdmin = session?.user?.role === Role.ADMIN;
 
   return {
-    session,
+    session: session?.session ?? null,
+    user: session?.user ?? null,
     isAdmin,
   };
 }

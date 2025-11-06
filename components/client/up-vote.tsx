@@ -10,14 +10,14 @@ export type UpVoteProps = {
 };
 
 export const UpVote = ({ postId, value, onFinish }: UpVoteProps) => {
-  const { session } = useAuth();
+  const { user } = useAuth();
 
   const handleUpVote = async () => {
-    if (!session) return;
+    if (!user) return;
 
     await createVote({
       data: {
-        user: { connect: { id: session.user.id } },
+        user: { connect: { id: user.id } },
         post: { connect: { id: postId } },
       },
     });
