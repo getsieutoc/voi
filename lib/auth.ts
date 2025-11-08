@@ -82,7 +82,7 @@ export const auth = betterAuth({
     }),
 
     admin({
-      defaultRole: 'MEMBER',
+      defaultRole: Role.MEMBER,
     }),
   ],
 
@@ -94,6 +94,34 @@ export const auth = betterAuth({
   advanced: {
     cookiePrefix: 'voi',
   },
+
+  databaseHooks: {
+    user: {
+      create: {
+        before: async (user, ctx) => {
+          if (!ctx) return { data: user };
+
+          // Check if this is the first user
+          const userCount = await ctx.context.internalAdapter.countTotalUsers();
+
+          if (userCount === 0) {
+            // First user gets admin role
+            return {
+              data: {
+                ...user,
+                role: Role.ADMIN,
+              },
+            };
+          }
+
+          // Other users get default role
+          return {
+            data: user,
+          };
+        },
+      },
+    },
+  },
 });
 
 export async function getSession() {
@@ -101,7 +129,7 @@ export async function getSession() {
     headers: await headers(),
   });
 
-  const isAdmin = session?.user?.role === Role.ADMIN;
+  const isAdmin = (session?.user as any)?.role === Role.ADMIN;
 
   return {
     session: session?.session ?? null,

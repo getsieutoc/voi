@@ -38,12 +38,13 @@ export const NotificationsForm = ({ user }: NotificationsFormProps) => {
 
   return (
     <div className="flex flex-col gap-4">
-      <h3 className="text-xl font-bold">Notifications</h3>
+      <h3 className="text-xl font-bold">Notifications (Coming soon)</h3>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="flex flex-col gap-4">
             <FormField
+              disabled
               control={form.control}
               name="notifyMe"
               render={({ field }) => (
@@ -51,6 +52,7 @@ export const NotificationsForm = ({ user }: NotificationsFormProps) => {
                   <FormLabel>Notify me about...</FormLabel>
                   <FormControl>
                     <RadioGroup
+                      disabled
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                       value={field.value}

@@ -4,6 +4,7 @@ import {
   Avatar,
   AvatarFallback,
   AvatarImage,
+  Badge,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
@@ -22,14 +23,10 @@ import {
 import { signOut } from '@/lib/auth-client';
 import NextLink from 'next/link';
 import { useRouter } from 'next/navigation';
+import { Session } from '@/types/common';
 
 export type ProfileIconProps = {
-  user: {
-    id: string;
-    name?: string | null;
-    email?: string | null;
-    image?: string | null;
-  };
+  user: Session['user'];
 };
 
 export const ProfileMenu = ({ user }: ProfileIconProps) => {
@@ -57,7 +54,10 @@ export const ProfileMenu = ({ user }: ProfileIconProps) => {
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent side="bottom" align="end" className="w-56">
-        <DropdownMenuLabel>{user.name ?? 'My Account'}</DropdownMenuLabel>
+        <DropdownMenuLabel className="flex items-center justify-between">
+          {user.name || 'My Account'}{' '}
+          <Badge variant="outline">{user.role}</Badge>
+        </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>

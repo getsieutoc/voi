@@ -1,4 +1,7 @@
 import { Prisma } from '@/prisma/client/client';
+import { auth } from '@/lib/auth';
+
+export type Session = typeof auth.$Infer.Session;
 
 export enum HttpMethod {
   CONNECT = 'CONNECT',
