@@ -1,13 +1,16 @@
 import nodemailer from 'nodemailer';
+import { z } from 'zod';
 
-import { EMAIL_FROM, EMAIL_REGEX } from './constants';
+import { EMAIL_FROM } from './constants';
 
-type EmailPayload = {
-  to: string;
-  subject: string;
-  html: string;
-  text: string;
-};
+const emailPayloadSchema = z.object({
+  to: z.email(),
+  subject: z.string().min(1),
+  html: z.string(),
+  text: z.string(),
+});
+
+type EmailPayload = z.infer<typeof emailPayloadSchema>;
 
 const smtpOptions = {
   host: process.env.SMTP_HOST || 'localhost',
@@ -19,16 +22,12 @@ const smtpOptions = {
 };
 
 export const sendEmail = async (data: EmailPayload) => {
-  const isValidEmail = EMAIL_REGEX.test(data.to);
-
-  if (!isValidEmail) {
-    throw new Error('Invalid email address');
-  }
+  const validatedData = emailPayloadSchema.parse(data);
 
   const transporter = nodemailer.createTransport(smtpOptions);
 
   return transporter.sendMail({
     from: EMAIL_FROM,
-    ...data,
+    ...validatedData,
   });
 };

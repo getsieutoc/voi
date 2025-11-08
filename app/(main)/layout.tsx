@@ -14,7 +14,7 @@ export default function MainLayout({ children }: { children: ReactNode }) {
       <Separator />
 
       <div className="flex items-center justify-between">
-        <a href="https://sieutoc.website" target="_blank">
+        <a href="https://github.com/getsieutoc" target="_blank">
           Made by ⚡Sieutoc
         </a>
       </div>

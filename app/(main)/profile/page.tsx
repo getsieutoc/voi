@@ -2,8 +2,8 @@ import { Separator } from '@/components/ui';
 import { findOneUser } from '@/services/users';
 import { redirect } from 'next/navigation';
 import { getSession } from '@/lib/auth';
-
 import { NotificationsForm, ProfileForm } from '@/components/client';
+import { EMAIL_FROM } from '@/lib/constants';
 
 export default async function ProfilePage() {
   const { user } = await getSession();
@@ -18,9 +18,7 @@ export default async function ProfilePage() {
     return (
       <div>
         <p>Something is wrong, please refresh the page.</p>
-        <p>
-          If this message still persists, please contact support@sieutoc.website
-        </p>
+        <p>If this message still persists, please contact {EMAIL_FROM}</p>
       </div>
     );
   }
