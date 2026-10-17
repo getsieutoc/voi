@@ -56,14 +56,7 @@ export const CreateNewPostButton = () => {
   const onSubmit: SubmitHandler<Inputs> = async (input) => {
     if (!user) return;
 
-    const result = await createPost({
-      data: {
-        ...input,
-        user: {
-          connect: { id: user.id },
-        },
-      },
-    });
+    const result = await createPost(input);
 
     if (result) {
       mutate();

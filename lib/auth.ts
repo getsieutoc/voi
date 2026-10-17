@@ -1,6 +1,7 @@
 import { betterAuth } from 'better-auth';
 import { prismaAdapter } from 'better-auth/adapters/prisma';
 import { admin } from 'better-auth/plugins/admin';
+import { adminAc, userAc } from 'better-auth/plugins/admin/access';
 import { emailOTP } from 'better-auth/plugins/email-otp';
 import { prisma } from '@/lib/prisma';
 import { sendEmail } from '@/lib/nodemailer';
@@ -83,6 +84,9 @@ export const auth = betterAuth({
 
     admin({
       defaultRole: Role.MEMBER,
+      // Our roles are uppercase enum values; map them onto the built-in permission sets.
+      adminRoles: [Role.ADMIN],
+      roles: { [Role.ADMIN]: adminAc, [Role.MEMBER]: userAc },
     }),
   ],
 
@@ -129,7 +133,7 @@ export async function getSession() {
     headers: await headers(),
   });
 
-  const isAdmin = (session?.user as any)?.role === Role.ADMIN;
+  const isAdmin = session?.user.role === Role.ADMIN;
 
   return {
     session: session?.session ?? null,

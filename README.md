@@ -23,25 +23,6 @@
 
 ## Getting Started
 
-### Deploy with Diploi
-
-[Diploi](https://diploi.com) is the recommended hosted option. The repo
-ships a [`diploi.yaml`](./diploi.yaml) that wires the Next.js app to a
-managed PostgreSQL addon, so a deployment is essentially:
-
-1. Sign in at [console.diploi.com](https://console.diploi.com) with GitHub.
-2. Create a project and point it at this repository.
-3. Set the deployment env vars listed under [Normal Installation](#normal-installation):
-   `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`, `EMAIL_FROM`, `SMTP_HOST`,
-   `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`. `DATABASE_URL` is wired
-   automatically from the PostgreSQL addon.
-4. Trigger a deployment. After the first boot, run `pnpm prisma migrate deploy`
-   from Diploi's exec console so the schema is applied.
-5. The first user to sign in becomes `ADMIN` (see `lib/auth.ts`).
-
-See Diploi's [Get Started guide](https://docs.diploi.com/get-started/) and
-the [`diploi.yaml` reference](https://docs.diploi.com/reference/diploi-yaml).
-
 ### Normal Installation
 
 You need at least one Postgresql instance up and running.

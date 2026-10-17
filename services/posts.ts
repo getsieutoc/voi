@@ -6,16 +6,45 @@ import { prisma } from '@/lib/prisma';
 import deepmerge from 'deepmerge';
 import { Post, Status } from '@/prisma/client/client';
 
-export async function createPost(
-  input: Parameters<typeof prisma.post.create>[0]
-) {
-  const { user } = await getSession();
+type PostInput = Pick<Post, 'title' | 'description' | 'status'>;
+
+// Only the post's owner or an admin may change it; status is admin-only.
+async function authorizePostChange(postId: string) {
+  const { user, isAdmin } = await getSession();
 
   if (!user) {
     throw new Error('Unauthorized');
   }
 
-  const response = await prisma.post.create(input);
+  if (!isAdmin) {
+    const post = await prisma.post.findUnique({
+      where: { id: postId },
+      select: { userId: true },
+    });
+
+    if (post?.userId !== user.id) {
+      throw new Error('Unauthorized');
+    }
+  }
+
+  return { isAdmin };
+}
+
+export async function createPost({ title, description, status }: PostInput) {
+  const { user, isAdmin } = await getSession();
+
+  if (!user) {
+    throw new Error('Unauthorized');
+  }
+
+  const response = await prisma.post.create({
+    data: {
+      title,
+      description,
+      status: isAdmin ? status : undefined,
+      userId: user.id,
+    },
+  });
 
   revalidatePath('/');
 
@@ -46,24 +75,22 @@ export async function findPosts(input: PostFindManyArgs = {}) {
   return response;
 }
 
-export async function updatePost(id: string, data: Partial<Post>) {
-  const { user } = await getSession();
+export async function updatePost(
+  id: string,
+  { title, description, status }: Partial<PostInput>
+) {
+  const { isAdmin } = await authorizePostChange(id);
 
-  if (!user) {
-    throw new Error('Unauthorized');
-  }
-
-  const response = await prisma.post.update({ where: { id }, data });
+  const response = await prisma.post.update({
+    where: { id },
+    data: { title, description, status: isAdmin ? status : undefined },
+  });
 
   return response;
 }
 
 export async function deletePost(id: string) {
-  const { user } = await getSession();
-
-  if (!user) {
-    throw new Error('Unauthorized');
-  }
+  await authorizePostChange(id);
 
   const response = await prisma.post.delete({ where: { id } });
 
@@ -73,9 +100,9 @@ export async function deletePost(id: string) {
 }
 
 export async function updatePostStatus(postId: string, status: Status) {
-  const { user } = await getSession();
+  const { isAdmin } = await getSession();
 
-  if (!user || user.role !== 'ADMIN') {
+  if (!isAdmin) {
     throw new Error('Unauthorized: Admin only');
   }
 
