@@ -1,3 +1,28 @@
+## <small>0.2.1 (2026-10-17)</small>
+
+* ✨Update .env.example with SMTP configuration for local development; enhance NotificationsForm to ind ([5576648](https://github.com/getsieutoc/voi/commit/5576648))
+* ✨Update LICENSE to reflect new copyright holder; add zod dependency for schema validation in nodemai ([64f15be](https://github.com/getsieutoc/voi/commit/64f15be))
+* Bump better-auth from 1.3.34 to 1.6.22 ([8da489d](https://github.com/getsieutoc/voi/commit/8da489d))
+* Bump next from 16.0.1 to 16.3.8 ([7394b27](https://github.com/getsieutoc/voi/commit/7394b27))
+* Bump nodemailer from 7.0.3 to 7.0.7 ([1dd5df1](https://github.com/getsieutoc/voi/commit/1dd5df1))
+* Bump nodemailer from 7.0.7 to 10.0.9 ([3fc1d85](https://github.com/getsieutoc/voi/commit/3fc1d85))
+* Bump postcss from 8.4.35 to 8.5.23 ([9891ce3](https://github.com/getsieutoc/voi/commit/9891ce3))
+* Bump qs from 6.11.2 to 6.16.0 ([29d9bf6](https://github.com/getsieutoc/voi/commit/29d9bf6))
+* Merge pull request #19 from getsieutoc/update-deployment ([58ae675](https://github.com/getsieutoc/voi/commit/58ae675)), closes [#19](https://github.com/getsieutoc/voi/issues/19)
+* Merge pull request #22 from getsieutoc/dependabot/npm_and_yarn/better-auth-1.6.22 ([7c6db51](https://github.com/getsieutoc/voi/commit/7c6db51)), closes [#22](https://github.com/getsieutoc/voi/issues/22)
+* Merge pull request #23 from getsieutoc/dependabot/npm_and_yarn/postcss-8.5.23 ([707095d](https://github.com/getsieutoc/voi/commit/707095d)), closes [#23](https://github.com/getsieutoc/voi/issues/23)
+* Merge pull request #24 from getsieutoc/dependabot/npm_and_yarn/qs-6.16.0 ([4a78879](https://github.com/getsieutoc/voi/commit/4a78879)), closes [#24](https://github.com/getsieutoc/voi/issues/24)
+* Merge pull request #27 from getsieutoc/dependabot/npm_and_yarn/nodemailer-10.0.9 ([291c53d](https://github.com/getsieutoc/voi/commit/291c53d)), closes [#27](https://github.com/getsieutoc/voi/issues/27)
+* Merge pull request #28 from getsieutoc/dependabot/npm_and_yarn/next-16.3.8 ([7a4974d](https://github.com/getsieutoc/voi/commit/7a4974d)), closes [#28](https://github.com/getsieutoc/voi/issues/28)
+* Merge pull request #29 from getsieutoc/sang-dev ([47213c1](https://github.com/getsieutoc/voi/commit/47213c1)), closes [#29](https://github.com/getsieutoc/voi/issues/29)
+* Merge pull request #9 from getsieutoc/dependabot/npm_and_yarn/nodemailer-7.0.7 ([a96b4aa](https://github.com/getsieutoc/voi/commit/a96b4aa)), closes [#9](https://github.com/getsieutoc/voi/issues/9)
+* Merge remote-tracking branch 'origin/master' into pr-24 ([a918073](https://github.com/getsieutoc/voi/commit/a918073))
+* update gitignore ([9164947](https://github.com/getsieutoc/voi/commit/9164947))
+* update readme and add diploi config ([6662683](https://github.com/getsieutoc/voi/commit/6662683))
+* fix: restrict post edits and deletes to owner or admin ([cf65f71](https://github.com/getsieutoc/voi/commit/cf65f71))
+* refactor: drop NextAuth leftovers and map roles in Better Auth admin plugin ([e7072c4](https://github.com/getsieutoc/voi/commit/e7072c4))
+* chore: remove Diploi and Dokploy deploy config ([4e7de05](https://github.com/getsieutoc/voi/commit/4e7de05))
+
 ## 0.2.0 (2025-11-06)
 
 * feat: Set up semantic-release for automated versioning and changelog generation; add commitlint for  ([5ce013a](https://github.com/getsieutoc/voi/commit/5ce013a))
